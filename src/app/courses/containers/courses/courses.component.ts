@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent {
 
   courses$: Observable<Course[]> | null = null;
 
@@ -45,9 +45,6 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   onAdd() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
@@ -58,7 +55,7 @@ export class CoursesComponent implements OnInit {
 
   onRemove(course: Course) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Confirme a exclusão do curso.',
+      data: `Confirme a exclusão do curso ${course.name}.`,
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
